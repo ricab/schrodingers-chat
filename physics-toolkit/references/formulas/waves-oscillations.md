@@ -42,7 +42,7 @@
 | Two coupled (symmetric) | ω₁ = √(k/m) (in-phase) | | Identical masses & springs |
 | Two coupled (antisymm.) | ω₂ = √((k+2κ)/m) (out-of-phase) | κ coupling spring | Identical masses |
 | Beats | x = 2A cos(Δωt/2) cos(ω̄t) | Δω = ω₂−ω₁, ω̄ = (ω₁+ω₂)/2 | Weakly coupled |
-| N coupled (chain) | ω_n = 2ω₀ |sin(nπ/(2(N+1)))| | n = 1,...,N | Identical masses, fixed ends |
+| N coupled (chain) | ω_n = 2ω₀ \|sin(nπ/(2(N+1)))\| | n = 1,...,N | Identical masses, fixed ends |
 
 ## Waves
 

@@ -21,7 +21,7 @@
 | Invariant interval | Δs² = −c²Δt² + Δr² | Δs² < 0 timelike, > 0 spacelike | Inertial frames |
 | Proper time | dτ = dt/γ = √(−ds²)/c | | Along worldline |
 | 4-position | x^μ = (ct, x, y, z) | | Contravariant |
-| 4-velocity | u^μ = γ(c, v) | | |u^μu_μ| = c² |
+| 4-velocity | u^μ = γ(c, v) | u^μu_μ = −c² | (−,+,+,+) signature |
 | 4-momentum | p^μ = (E/c, p) | | |
 | 4-force | f^μ = dp^μ/dτ | | |
 

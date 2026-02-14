@@ -45,8 +45,7 @@
 |------|----------|-----------|----------|
 | Malus's law | I = I₀ cos²θ | θ angle between polarizer axes | Linear polarizer |
 | Brewster's angle | tanθ_B = n₂/n₁ | | Reflected: pure s-polarization |
-| Fresnel (s, normal) | r_s = (n₁−n₂)/(n₁+n₂) | | Normal incidence |
-| Fresnel (p, normal) | r_p = (n₂−n₁)/(n₁+n₂) | | Normal incidence |
+| Fresnel (normal incidence) | r = (n₁−n₂)/(n₁+n₂) | s/p undefined at normal incidence | Normal incidence |
 | Reflectance (normal) | R = ((n₁−n₂)/(n₁+n₂))² | | Normal incidence |
 | Circular polarization | E = E₀(x̂ cosωt ± ŷ sinωt) | + RCP, − LCP | Monochromatic |
 
@@ -57,4 +56,4 @@
 | s (TE) | r_s = (n₁cosθ₁ − n₂cosθ₂)/(n₁cosθ₁ + n₂cosθ₂) | t_s = 2n₁cosθ₁/(n₁cosθ₁ + n₂cosθ₂) |
 | p (TM) | r_p = (n₂cosθ₁ − n₁cosθ₂)/(n₂cosθ₁ + n₁cosθ₂) | t_p = 2n₁cosθ₁/(n₂cosθ₁ + n₁cosθ₂) |
 
-R = |r|², T = (n₂cosθ₂)/(n₁cosθ₁) |t|²
+| Energy conservation | R = \|r\|², T = (n₂cosθ₂)/(n₁cosθ₁) \|t\|² | R + T = 1 | Non-absorbing media |
