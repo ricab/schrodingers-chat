@@ -11,14 +11,10 @@ Examples:
 
 import sys
 import math
+import os
 
-# --- Physical constants (CODATA 2018, exact where noted) ---
-_c = 2.99792458e8          # m/s (exact)
-_h = 6.62607015e-34        # J·s (exact)
-_hbar = _h / (2 * math.pi)
-_k_B = 1.380649e-23        # J/K (exact)
-_e = 1.602176634e-19       # C (exact)
-_N_A = 6.02214076e23       # 1/mol (exact)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from constants import c as _c, h as _h, hbar as _hbar, k_B as _k_B, e as _e, N_A as _N_A
 
 # --- Unit definitions: {name: (factor_to_SI, dimension_key)} ---
 # Temperature handled separately below.
@@ -139,10 +135,6 @@ def convert(value, from_unit, to_unit):
             pass  # fall through to general case
         else:
             return K_TO_TEMP[to_unit](TEMP_TO_K[from_unit](value))
-    # Pure temperature to temperature
-    if from_unit in TEMP_TO_K and to_unit in K_TO_TEMP and from_unit not in UNITS:
-        return K_TO_TEMP[to_unit](TEMP_TO_K[from_unit](value))
-
     # Temperature <-> energy cross-conversion
     if from_unit in TEMP_TO_K and to_unit in UNITS:
         to_factor, to_dim = UNITS[to_unit]

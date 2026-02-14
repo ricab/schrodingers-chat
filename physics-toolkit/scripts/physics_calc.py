@@ -12,40 +12,26 @@ Examples:
 import ast
 import math
 import operator
+import os
 import sys
 
-# --- Physical constants (CODATA 2018) ---
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import constants as _const
+
+# --- Physical constants (from shared constants module) ---
 CONSTANTS = {
     # Universal
-    "c": 2.99792458e8,            # m/s
-    "h": 6.62607015e-34,          # J·s
-    "hbar": 1.054571817e-34,      # J·s
-    "G": 6.67430e-11,             # m³/(kg·s²)
-    "k_B": 1.380649e-23,          # J/K
-    "sigma_sb": 5.670374419e-8,   # W/(m²·K⁴)
-
+    "c": _const.c, "h": _const.h, "hbar": _const.hbar,
+    "G": _const.G, "k_B": _const.k_B, "sigma_sb": _const.sigma_sb,
     # Electromagnetic
-    "e": 1.602176634e-19,         # C
-    "epsilon_0": 8.8541878128e-12, # F/m
-    "mu_0": 1.25663706212e-6,     # N/A²
-    "alpha": 7.2973525693e-3,     # fine-structure constant
-    "k_e": 8.9875517923e9,        # N·m²/C² (Coulomb constant)
-
+    "e": _const.e, "epsilon_0": _const.epsilon_0, "mu_0": _const.mu_0,
+    "alpha": _const.alpha, "k_e": _const.k_e,
     # Atomic
-    "m_e": 9.1093837015e-31,      # kg
-    "m_p": 1.67262192369e-27,     # kg
-    "m_n": 1.67492749804e-27,     # kg
-    "amu": 1.66053906660e-27,     # kg
-    "a_0": 5.29177210903e-11,     # m (Bohr radius)
-    "R_inf": 1.0973731568160e7,   # 1/m (Rydberg)
-    "E_h": 4.3597447222071e-18,   # J (Hartree)
-    "mu_B": 9.2740100783e-24,     # J/T (Bohr magneton)
-
+    "m_e": _const.m_e, "m_p": _const.m_p, "m_n": _const.m_n,
+    "amu": _const.amu, "a_0": _const.a_0, "R_inf": _const.R_inf,
+    "E_h": _const.E_h, "mu_B": _const.mu_B,
     # Thermodynamic
-    "N_A": 6.02214076e23,         # 1/mol
-    "R": 8.314462618,             # J/(mol·K)
-    "F": 96485.33212,             # C/mol (Faraday)
-
+    "N_A": _const.N_A, "R": _const.R, "F": _const.F,
     # Math constants
     "pi": math.pi,
     "e_math": math.e,             # use e_math to avoid collision with elementary charge
@@ -84,6 +70,12 @@ ALLOWED_FUNCS = {
     "abs": abs,
     "pow": pow,
     "factorial": math.factorial,
+    "sinh": math.sinh,
+    "cosh": math.cosh,
+    "tanh": math.tanh,
+    "asinh": math.asinh,
+    "acosh": math.acosh,
+    "atanh": math.atanh,
 }
 
 
@@ -122,9 +114,15 @@ def walk_ast(node):
         return ALLOWED_OPS[op_type](operand)
 
     if isinstance(node, ast.Call):
+        if node.keywords:
+            raise ValueError("Keyword arguments not supported")
         if isinstance(node.func, ast.Name) and node.func.id in ALLOWED_FUNCS:
             args = [walk_ast(arg) for arg in node.args]
-            return ALLOWED_FUNCS[node.func.id](*args)
+            fn = ALLOWED_FUNCS[node.func.id]
+            if fn is math.factorial:
+                if len(args) != 1 or args[0] > 1000:
+                    raise ValueError("factorial argument must be <= 1000")
+            return fn(*args)
         func_name = node.func.id if isinstance(node.func, ast.Name) else "?"
         raise ValueError(
             f"Unknown function: '{func_name}'\n"
